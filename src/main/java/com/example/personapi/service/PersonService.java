@@ -8,6 +8,9 @@ import com.example.personapi.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class PersonService {
@@ -27,4 +30,11 @@ public class PersonService {
                 .build();
     }
 
+    public List<PersonDTO> listAll() {
+        List<Person> personList = personRepository.findAll();
+        return personList.stream()
+                .map(personMapper::toDTO)
+                .collect(Collectors.toList());
+
+    }
 }
